@@ -15,5 +15,8 @@ window.FRIENDSGIVING_CONFIG = {
 
   // Optional: personalize the header
   EVENT_TITLE: "Friendsgiving",
-  EVENT_DETAILS: "Bring a dish, bring a friend, bring your appetite.",
+  EVENT_DATE: "Saturday, November 7th, 2026",
+  EVENT_TIME: "5 p.m.",
+  QUOTE: "All I can make is cold cereal and maybe toast.",
+  QUOTE_SOURCE: "Charlie Brown, A Charlie Brown Thanksgiving",
 };

@@ -576,7 +576,10 @@
       $("event-title").textContent = config.EVENT_TITLE;
       document.title = config.EVENT_TITLE;
     }
-    $("event-details").textContent = config.EVENT_DETAILS || "";
+    $("event-when").textContent = [config.EVENT_DATE, config.EVENT_TIME].filter(Boolean).join(" at ");
+    $("quote-text").textContent = config.QUOTE ? `“${config.QUOTE}”` : "";
+    $("quote-source").textContent = config.QUOTE_SOURCE ? `— ${config.QUOTE_SOURCE}` : "";
+    $("event-quote").hidden = !config.QUOTE;
     $("demo-banner").hidden = !demoMode;
 
     buildCategoryChips();
