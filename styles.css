@@ -170,9 +170,10 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.1; marg
 }
 
 /* ---------- form ---------- */
-#signup-form { display: grid; gap: 22px; }
+#signup-form { display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; min-width: 0; }
 
-.photo-row { display: flex; gap: 18px; align-items: center; }
+.photo-row { display: flex; gap: 18px; align-items: center; min-width: 0; }
+@media (max-width: 380px) { .photo-row { gap: 14px; } .photo-picker { width: 72px; height: 72px; } }
 .photo-picker {
   flex: none;
   width: 86px;
@@ -192,7 +193,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.1; marg
 .photo-placeholder { text-align: center; font-style: italic; font-size: 16px; line-height: 1.1; color: var(--rust); }
 .photo-help { display: grid; gap: 2px; font-size: 16px; color: var(--ink-2); min-width: 0; }
 .photo-help .field-label { color: var(--ink); }
-.photo-help input[type="file"] { margin-top: 6px; font: inherit; font-size: 14px; color: var(--ink-3); max-width: 100%; }
+.photo-help input[type="file"] { margin-top: 6px; font: inherit; font-size: 14px; color: var(--ink-3); width: 100%; min-width: 0; }
 .photo-help input[type="file"]::file-selector-button {
   font: inherit;
   font-size: 13px;
