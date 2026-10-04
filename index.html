@@ -5,23 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Friendsgiving</title>
   <meta name="description" content="Sign up for Friendsgiving and see what everyone is bringing." />
-  <meta name="theme-color" content="#17120e" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><ellipse cx='20' cy='38' rx='14' ry='17' fill='%23a9521f'/><ellipse cx='44' cy='38' rx='14' ry='17' fill='%23a9521f'/><ellipse cx='32' cy='38' rx='12' ry='19' fill='%23d77a35'/><path d='M31 22c0-6 2-10 6-13' stroke='%235b4a2c' stroke-width='4' fill='none' stroke-linecap='round'/></svg>" />
+  <meta name="theme-color" content="#c38b52" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='8 8 64 64'><path fill='%23bf5a2c' d='M40 28C24 22 10 32 11 46C12 61 26 67 40 65C54 67 69 61 69 46C70 32 56 22 40 28Z'/><g fill='none' stroke='%234a2a24' stroke-width='2.4' stroke-linecap='round'><path d='M34 28C27 38 27 54 35 64M46 28C53 38 53 54 45 64M38 27C38 20 40 15 45 12'/></g></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Sorts+Mill+Goudy:ital@0;1&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="candlelight" aria-hidden="true"></div>
-  <div class="gourds" aria-hidden="true"></div>
+  <div class="falling" aria-hidden="true"></div>
 
   <header class="hero">
-    <p class="eyebrow">You are cordially invited to</p>
-    <h1 id="event-title">Friendsgiving</h1>
-    <div class="ornament" aria-hidden="true"><span></span><i></i><span></span></div>
-    <p class="hero-details" id="event-details"></p>
-    <p class="hero-count" id="hero-count" aria-live="polite"></p>
+    <div class="invite">
+      <div class="garland" id="garland" aria-hidden="true"></div>
+      <p class="invite-pre">Please join us for</p>
+      <h1 id="event-title">Friendsgiving</h1>
+      <div class="sprig" id="sprig" aria-hidden="true"></div>
+      <p class="hero-details" id="event-details"></p>
+      <p class="hero-count" id="hero-count" aria-live="polite"></p>
+      <div class="hero-gourds" id="hero-gourds" aria-hidden="true"></div>
+    </div>
   </header>
 
   <div class="banner" id="demo-banner" hidden>
@@ -30,14 +33,14 @@
 
   <main class="layout">
     <section class="card form-card" aria-labelledby="form-heading">
-      <p class="section-label">RSVP</p>
+      <p class="section-label">Kindly reply</p>
       <h2 id="form-heading">Claim your dish</h2>
 
       <form id="signup-form" novalidate>
         <div class="photo-row">
           <label class="photo-picker" for="photo">
             <img id="photo-preview" alt="" hidden />
-            <span class="photo-placeholder" id="photo-placeholder">Add<br />photo</span>
+            <span class="photo-placeholder" id="photo-placeholder">add a<br />photo</span>
           </label>
           <div class="photo-help">
             <span class="field-label">Your portrait</span>

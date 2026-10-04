@@ -439,64 +439,133 @@
     }
   });
 
-  // ----------------------------------------------------- pumpkins & gourds
+  // ------------------------------------------- hand-drawn pumpkins & gourds
+  // Ink outlines with color laid slightly off-register, like a printed card.
 
-  const GOURDS = [
-    // ribbed orange pumpkin
-    () => pumpkin(["#9c4a1c", "#b95c24", "#cf7232", "#4f4128"]),
-    // white pumpkin
-    () => pumpkin(["#cfc2a4", "#ddd2b9", "#ebe3d0", "#6b7448"]),
-    // pale "cinderella" pumpkin
-    () => pumpkin(["#b8743a", "#cc8a4b", "#dca064", "#5a4a2c"]),
-    // striped sweet-dumpling squash
-    (u) => `<svg viewBox="0 0 64 64"><defs><clipPath id="${u}"><ellipse cx="32" cy="41" rx="25" ry="16"/></clipPath></defs>
-      <ellipse cx="32" cy="41" rx="25" ry="16" fill="#e2d4b0"/>
-      <g clip-path="url(#${u})" fill="none" stroke="#5c6b38" stroke-width="3.4">
-        <path d="M13 24Q5 41 13 58"/><path d="M22 24Q16 41 22 58"/><path d="M32 24V58"/><path d="M42 24Q48 41 42 58"/><path d="M51 24Q59 41 51 58"/>
-      </g>
-      <g fill="#c8692c" opacity=".7"><circle cx="18" cy="38" r="1.4"/><circle cx="27" cy="47" r="1.2"/><circle cx="37" cy="36" r="1.3"/><circle cx="46" cy="46" r="1.4"/></g>
-      <path d="M32 27c0-5 1-8 4.5-10" stroke="#4f4128" stroke-width="3.4" fill="none" stroke-linecap="round"/></svg>`,
-    // warty orange gourd
-    () => {
-      const bumps = [[20,30],[28,24],[37,25],[45,31],[16,40],[25,36],[34,33],[43,40],[50,42],[21,49],[30,45],[39,48],[47,51],[27,55],[36,56]]
-        .map(([x, y]) => `<circle cx="${x}" cy="${y}" r="2.6"/>`).join("");
-      return `<svg viewBox="0 0 64 64"><ellipse cx="33" cy="41" rx="21" ry="19" fill="#bf5f28"/>
-        <g fill="#d88a46">${bumps}</g>
-        <g fill="#6d7240" opacity=".85"><ellipse cx="24" cy="44" rx="4" ry="3"/><ellipse cx="42" cy="34" rx="3.5" ry="2.6"/></g>
-        <path d="M33 23c0-5 2-8 5-10" stroke="#4f4128" stroke-width="3.4" fill="none" stroke-linecap="round"/></svg>`;
-    },
-    // two-tone swan-neck gourd
-    (u) => `<svg viewBox="0 0 64 64"><defs><clipPath id="${u}"><ellipse cx="36" cy="47" rx="17" ry="14"/></clipPath></defs>
-      <path d="M31 40C27 29 23 19 28 10" stroke="#d3a443" stroke-width="10" fill="none" stroke-linecap="round"/>
-      <ellipse cx="36" cy="47" rx="17" ry="14" fill="#d3a443"/>
-      <path d="M17 48Q27 44 36 49T56 47V64H17Z" fill="#3c4729" clip-path="url(#${u})"/>
-      <path d="M28 10c-1-3 0-5 2.5-6.5" stroke="#4f4128" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`,
-  ];
+  const INK = "#4a2a24";
+  const C = {
+    rust: "#bf5a2c", rustDeep: "#9e4421", mustard: "#e0b54a", cream: "#f3e6c9",
+    olive: "#76813f", green: "#4c5a30", brown: "#7a5232", sage: "#a9c2bd",
+  };
 
-  function pumpkin([dark, mid, light, stem]) {
-    return `<svg viewBox="0 0 64 64">
-      <ellipse cx="18" cy="41" rx="14" ry="16" fill="${dark}"/><ellipse cx="46" cy="41" rx="14" ry="16" fill="${dark}"/>
-      <ellipse cx="25" cy="41" rx="11" ry="17.5" fill="${mid}"/><ellipse cx="39" cy="41" rx="11" ry="17.5" fill="${mid}"/>
-      <ellipse cx="32" cy="41" rx="9" ry="18.5" fill="${light}"/>
-      <path d="M31 26c0-6 1.5-10 6-13" stroke="${stem}" stroke-width="3.6" fill="none" stroke-linecap="round"/></svg>`;
+  const svg = (body, viewBox = "0 0 80 80") =>
+    `<svg viewBox="${viewBox}" fill="none" stroke="${INK}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${body}</svg>`;
+  const offset = (body) => `<g stroke="none" transform="translate(2.4 1.8)">${body}</g>`;
+
+  function pumpkin(fill, stem) {
+    return svg(
+      offset(`<path fill="${fill}" d="M40 28C24 22 10 32 11 46C12 61 26 67 40 65C54 67 69 61 69 46C70 32 56 22 40 28Z"/>
+        <path fill="${stem}" d="M37 28C37 21 40 15 45 12L48 15C44 18 43 22 43 28Z"/>`) +
+      `<path d="M38 27C22 22 9 33 10 46C11 60 24 66 36 64M42 27C58 22 71 33 70 46C69 60 56 66 44 64"/>
+       <path d="M34 28C27 38 27 54 35 64M46 28C53 38 53 54 45 64M35 64Q40 67 45 64"/>
+       <path d="M38 27C38 20 40 15 45 12M42 27C42 21 43 18 48 15M45 12L48 15"/>
+       <path d="M44 22c4-3 9-2 9 2s-5 4-5 1" stroke-width="1.3"/>`
+    );
   }
 
-  function scatterGourds() {
-    const layer = document.querySelector(".gourds");
-    const count = window.innerWidth < 600 ? 9 : 16;
+  const ART = {
+    pumpkin: () => pumpkin(C.rust, C.brown),
+    whitePumpkin: () => pumpkin(C.cream, C.olive),
+    mustardPumpkin: () => pumpkin(C.mustard, C.brown),
+    dumpling: () => svg(
+      offset(`<path fill="${C.mustard}" d="M12 47C12 33 26 29 40 29C54 29 68 33 68 47C68 61 54 65 40 65C26 65 12 61 12 47Z"/>`) +
+      `<path d="M33 30C29 40 29 55 33 64M47 30C51 40 51 55 47 64M21 34C17 41 17 53 21 60M59 34C63 41 63 53 59 60" stroke="${C.olive}" stroke-width="3.2"/>
+       <path d="M12 47C12 33 26 29 40 29C54 29 68 33 68 47C68 61 54 65 40 65C26 65 12 61 12 47Z"/>
+       <path d="M26 31C20 40 20 55 26 63M40 29V65M54 31C60 40 60 55 54 63"/>
+       <path d="M39 30C39 25 40 22 43 19M41 30C41 26 42 24 45 21M43 19L45 21"/>
+       <g fill="${C.rust}" stroke="none"><circle cx="17" cy="45" r="1.3"/><circle cx="29" cy="52" r="1.2"/><circle cx="44" cy="40" r="1.3"/><circle cx="57" cy="50" r="1.3"/><circle cx="36" cy="58" r="1.1"/></g>`
+    ),
+    warty: () => {
+      const bumps = [[30,32],[40,30],[50,33],[25,41],[35,39],[46,40],[56,43],[28,51],[39,49],[50,52],[33,59],[44,60]]
+        .map(([x, y]) => `<circle cx="${x}" cy="${y}" r="2.1"/>`).join("");
+      return svg(
+        offset(`<path fill="${C.rust}" d="M40 26C52 26 60 35 60 46C60 58 51 66 40 66C28 66 20 57 20 46C20 35 28 26 40 26Z"/>
+          <path fill="${C.olive}" d="M24 50C27 46 33 47 33 52C31 56 26 56 24 50Z"/>`) +
+        `<path d="M40 26C52 26 60 35 60 46C60 58 51 66 40 66C28 66 20 57 20 46C20 35 28 26 40 26Z"/>
+         <g fill="${C.mustard}" stroke-width="1.2">${bumps}</g>
+         <path d="M39 26C39 22 40 19 43 17M41.5 26C41.5 23 42.5 21 45 19.5M43 17L45 19.5"/>`
+      );
+    },
+    swan: () => svg(
+      offset(`<path fill="${C.mustard}" d="M28 47C14 50 14 70 34 70C52 71 60 56 47 47C41 41 40 34 40 26C40 20 42 16 46 13L43 10C38 12 34 16 33 22C32 30 33 40 28 47Z"/>`) +
+      `<path fill="${C.green}" stroke="none" d="M17 58Q29 54 38 60T59 55C59 66 49 71 34 70C24 70 17 66 17 58Z"/>
+       <path d="M17 58Q29 54 38 60T59 55"/>
+       <path d="M28 46C14 50 14 70 34 70C52 71 60 56 47 47"/>
+       <path d="M28 46C33 40 32 30 33 22C34 16 38 12 43 10M47 47C41 41 40 34 40 26C40 20 42 16 46 13M43 10Q46 10 46 13"/>
+       <path d="M44 11C45 7 47 5 50 4" stroke-width="2.2"/>`
+    ),
+    acorn: () => svg(
+      offset(`<path fill="${C.green}" d="M40 24C26 24 15 35 17 49C19 62 30 70 40 71C50 70 61 62 63 49C65 35 54 24 40 24Z"/>
+        <path fill="${C.rust}" d="M44 52C50 50 56 54 54 60C50 64 44 62 44 52Z"/>`) +
+      `<path d="M40 24C26 24 15 35 17 49C19 62 30 70 40 71C50 70 61 62 63 49C65 35 54 24 40 24Z"/>
+       <path d="M30 26C24 38 26 58 36 70M50 26C56 38 54 58 44 70M40 24V71"/>
+       <path d="M37 24C37 19 38 16 40 13L44 14C43 17 43 20 43 24" fill="${C.brown}"/>`
+    ),
+    leaf: (color = C.rust) => svg(
+      `<path fill="${color}" stroke="none" d="M42 14C56 28 57 47 42 68C27 47 28 28 42 14Z"/>
+       <path d="M40 22V74M40 40l-6-6M40 50l7-7M40 60l-6-5" stroke-width="1.4"/>`
+    ),
+  };
+
+  // A scalloped string of lights for the top of the invitation.
+  function garland() {
+    const W = 720, swags = 8, span = W / swags, top = 5, low = 34;
+    const pt = (t, a, b, c, d) => (1 - t) ** 3 * a + 3 * (1 - t) ** 2 * t * b + 3 * (1 - t) * t ** 2 * c + t ** 3 * d;
+    let line = `M0 ${top}`, bulbs = "";
+    for (let i = 0; i < swags; i++) {
+      const x0 = i * span, x1 = x0 + span, c0 = x0 + span * 0.12, c1 = x1 - span * 0.12;
+      line += ` C${c0} ${low} ${c1} ${low} ${x1} ${top}`;
+      for (const t of [0.2, 0.35, 0.5, 0.65, 0.8]) {
+        const x = pt(t, x0, c0, c1, x1), y = pt(t, top, low, low, top);
+        bulbs += `<path d="M${x.toFixed(1)} ${y.toFixed(1)}v4"/><circle cx="${x.toFixed(1)}" cy="${(y + 8.5).toFixed(1)}" r="4.6" fill="${C.mustard}" stroke-width="1.3"/>`;
+      }
+    }
+    return svg(`<path d="${line}"/>${bulbs}`, `0 0 ${W} 44`);
+  }
+
+  // A little branch with rust leaves, used as a divider under the title.
+  function sprig() {
+    let leaves = "";
+    for (const [x, up] of [[22, 1], [40, 0], [58, 1], [92, 0], [110, 1], [128, 0]]) {
+      const dy = up ? -1 : 1;
+      leaves += `<path fill="${C.rust}" stroke="none" d="M${x} 16q${4} ${dy * -9} ${12} ${dy * -11}q${-2} ${dy * 9} ${-12} ${dy * 11}z"/>`;
+    }
+    return svg(
+      `<path d="M6 16C40 14 110 18 144 16" stroke-width="1.4"/>${leaves}
+       <circle cx="75" cy="16" r="5" fill="${C.mustard}" stroke-width="1.3"/>`,
+      "0 0 150 32"
+    );
+  }
+
+  function decorate() {
+    $("garland").innerHTML = garland();
+    $("sprig").innerHTML = sprig();
+
+    const cluster = [["whitePumpkin", 64], ["pumpkin", 96], ["swan", 70], ["dumpling", 72], ["warty", 58], ["acorn", 54]];
+    $("hero-gourds").replaceChildren(...cluster.map(([kind, size]) => {
+      const d = el("div");
+      d.style.width = `${size}px`;
+      d.innerHTML = ART[kind]();
+      return d;
+    }));
+
+    const layer = document.querySelector(".falling");
+    const kinds = ["pumpkin", "warty", "swan", "whitePumpkin", "dumpling", "leaf", "acorn", "mustardPumpkin", "leaf"];
+    const count = window.innerWidth < 600 ? 10 : 18;
     for (let i = 0; i < count; i++) {
-      const make = GOURDS[i % GOURDS.length];
-      const g = el("div", { class: "gourd" });
-      g.innerHTML = make(`gourd-clip-${i}`);
-      const size = 30 + Math.random() * 34;
-      g.style.width = `${size}px`;
-      g.style.left = `${(i / count) * 100 + Math.random() * (100 / count) - 3}%`;
-      g.style.animationDuration = `${38 + Math.random() * 34}s`;
-      g.style.animationDelay = `${-Math.random() * 70}s`;
-      g.style.setProperty("--r0", `${Math.round(Math.random() * 60 - 30)}deg`);
-      g.style.setProperty("--sway", `${Math.round(Math.random() * 80 - 40)}px`);
-      g.style.setProperty("--static-top", `${Math.round(Math.random() * 90)}vh`);
-      layer.append(g);
+      const kind = kinds[i % kinds.length];
+      const f = el("div", { class: "faller" });
+      f.innerHTML = kind === "leaf" ? ART.leaf(i % 2 ? C.rust : C.mustard) : ART[kind]();
+      const size = kind === "leaf" ? 26 + Math.random() * 14 : 40 + Math.random() * 34;
+      f.style.width = `${size}px`;
+      f.style.left = `${(i / count) * 100 + Math.random() * (100 / count) - 4}%`;
+      f.style.animationDuration = `${26 + Math.random() * 26}s`;
+      f.style.animationDelay = `${-Math.random() * 50}s`;
+      f.style.setProperty("--r0", `${Math.round(Math.random() * 50 - 25)}deg`);
+      f.style.setProperty("--spin", `${Math.round(Math.random() * 120 - 60) + (kind === "leaf" ? 200 : 0)}deg`);
+      f.style.setProperty("--sway", `${Math.round(Math.random() * 50 + 20)}px`);
+      f.style.setProperty("--static-top", `${Math.round(Math.random() * 90)}vh`);
+      layer.append(f);
     }
   }
 
@@ -511,7 +580,7 @@
     $("demo-banner").hidden = !demoMode;
 
     buildCategoryChips();
-    scatterGourds();
+    decorate();
     renderAll();
     await loadGuests();
     renderAll();

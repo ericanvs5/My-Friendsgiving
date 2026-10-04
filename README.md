@@ -15,7 +15,7 @@ There is nothing to install and no build step. It's plain HTML, CSS and JavaScri
 | File | What it is |
 |---|---|
 | `index.html` | The page |
-| `styles.css` | The look: a candlelit evening palette |
+| `styles.css` | The look: kraft paper, cream card stock, rust and mustard |
 | `app.js` | The form, the chart, and the Supabase connection |
 | `config.js` | **The only file you edit.** Your two Supabase values go here |
 | `supabase/setup.sql` | A script that creates the database table and the photo storage for you |
