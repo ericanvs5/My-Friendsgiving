@@ -4,6 +4,9 @@ A small Friendsgiving sign-up site. Guests add their **name**, the **dish** they
 (Appetizer, Main, Side, Dessert, Drinks) and a **photo** for their icon. A bar chart shows how many
 dishes are in each category. Hover over a bar (or tap it on a phone) to see each guest's photo, name and dish.
 
+Guests can remove their own entry if they made a mistake. A **Remove my entry** link appears under their
+name on the device they signed up from.
+
 Everything is saved in **Supabase** (a free online database), so all guests see the same list. New sign-ups
 show up on everyone's screen without a refresh. The site itself is hosted for free on **GitHub Pages**.
 
@@ -12,7 +15,7 @@ There is nothing to install and no build step. It's plain HTML, CSS and JavaScri
 | File | What it is |
 |---|---|
 | `index.html` | The page |
-| `styles.css` | The look (it switches to dark mode automatically) |
+| `styles.css` | The look: a candlelit evening palette |
 | `app.js` | The form, the chart, and the Supabase connection |
 | `config.js` | **The only file you edit.** Your two Supabase values go here |
 | `supabase/setup.sql` | A script that creates the database table and the photo storage for you |
@@ -61,6 +64,9 @@ This step uses a script that's included in this repository.
 - Turned on **Row Level Security**. Visitors to your site can *read* the guest list and *add* themselves,
   but they can't edit or delete anyone else's entry.
 - Turned on **Realtime** for the table, so new sign-ups appear live for everyone.
+- Set up **Remove my entry**. When someone signs up, their browser keeps a private remove code, and the
+  database stores only a scrambled (hashed) copy of it. Only that browser can remove that entry, and nobody
+  can read the codes.
 - Created a public **`guest-photos`** storage bucket that only accepts images up to 2 MB. Visitors can upload
   to it but can't delete or replace files. (The site also shrinks every photo to 256×256 before uploading.)
 </details>
@@ -131,7 +137,10 @@ automatically within a minute or two.
 
 ## Running the party
 
-- **Remove an entry** (a duplicate or a typo): in Supabase, go to **Table Editor → guests**, tick the row, and
+- **Guests can remove their own entry** with the **Remove my entry** link under their name. It only appears
+  on the phone or computer they signed up from. Entries made before this feature existed can only be removed
+  by you.
+- **Remove any entry yourself** (a duplicate, or a guest on a different device): in Supabase, go to **Table Editor → guests**, tick the row, and
   click **Delete**. The site updates for everyone. The photo stays in **Storage → guest-photos**, where you
   can delete it too if you like.
 - **Fix someone's dish:** double-click the cell in the Table Editor and edit it. Others will see the change
