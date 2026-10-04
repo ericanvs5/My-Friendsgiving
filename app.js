@@ -14,7 +14,7 @@
   const ICON_SIZE = 256; // photos are cropped to a 256×256 square before upload
 
   const config = window.FRIENDSGIVING_CONFIG || {};
-  const supabaseUrl = (config.SUPABASE_URL || "").trim().replace(/\/+$/, "");
+  const supabaseUrl = (config.SUPABASE_URL || "").trim().replace(/\/+$/, "").replace(/\/rest\/v1$/, "");
   const supabaseKey = (config.SUPABASE_ANON_KEY || "").trim();
   const demoMode = !supabaseUrl || !supabaseKey || !window.supabase;
   const db = demoMode ? null : window.supabase.createClient(supabaseUrl, supabaseKey);

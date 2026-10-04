@@ -10,8 +10,8 @@
 // =====================================================================
 
 window.FRIENDSGIVING_CONFIG = {
-  SUPABASE_URL: "",        // looks like: https://abcdefghijkl.supabase.co
-  SUPABASE_ANON_KEY: "",   // the "publishable" (sb_publishable_...) or "anon public" key
+  SUPABASE_URL: "https://bifotbnikihwyxbgroyn.supabase.co",        // looks like: https://abcdefghijkl.supabase.co
+  SUPABASE_ANON_KEY: "sb_publishable_JsFDecPxdFtJptefX_EeMg_AM02ChTP",   // the "publishable" (sb_publishable_...) or "anon public" key
 
   // Optional: personalize the header
   EVENT_TITLE: "Friendsgiving",
