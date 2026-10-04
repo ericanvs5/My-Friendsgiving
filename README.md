@@ -90,8 +90,8 @@ This step uses a script that's included in this repository.
    SUPABASE_URL: "https://abcdefghijkl.supabase.co",
    SUPABASE_ANON_KEY: "sb_publishable_xxxxxxxxxxxxxxxxxxxx",
    ```
-   You can also change `EVENT_TITLE` and `EVENT_DETAILS`, for example
-   `"Saturday Nov 22 · 4pm · Jamie's place"`.
+   In the same file you can also change the invitation text: `EVENT_TITLE`, `EVENT_DATE`, `EVENT_TIME`,
+   `QUOTE` and `QUOTE_SOURCE`. To hide the quote, set `QUOTE` to `""`.
 3. Click **Commit changes…**, then **Commit changes** again.
 
 Supabase is done ✅
